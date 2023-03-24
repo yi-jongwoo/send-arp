@@ -73,7 +73,7 @@ arp_eth_ipv4::arp_eth_ipv4(const mac_addr& src,const ipv4_addr& sip,const ipv4_a
 	arptype=htons(0x0001);
 	memset(&dmac,0,sizeof dmac);
 }
-arp_eth_ipv4::arp_eth_ipv4(const mac_addr& src,const mac_addr& dst,const ipv4_addr& sip,const ipv4_addr& dip):ethernet_packet(src,dst),l2addr_siz(mac_addr::siz),l3addr_siz(ipv4_addr::siz),smac(src),dmac(dst),sip(sip),tip(tip){
+arp_eth_ipv4::arp_eth_ipv4(const mac_addr& src,const mac_addr& dst,const ipv4_addr& sip,const ipv4_addr& tip):ethernet_packet(src,dst),l2addr_siz(mac_addr::siz),l3addr_siz(ipv4_addr::siz),smac(src),dmac(dst),sip(sip),tip(tip){
 	ethtype=htons(0x0806);
 	l2type=htons(0x0001);
 	l3type=htons(0x0800);

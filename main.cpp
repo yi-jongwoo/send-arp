@@ -1,40 +1,14 @@
 #include <iostream>
-#include <fstream>
 #include <string>
 #include <stdint.h>
 #include <cstring>
 #include <pcap.h>
 #include <ctype.h>
-#include <assert.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <sys/ioctl.h>
-#include <netinet/in.h>
-#include <net/if.h>
-#include <arpa/inet.h>
 #include "proto_structures.h"
-mac_addr get_mac_addr(const char *dev){
-	std::ifstream fs(std::string("/sys/class/net/")+dev+"/address");
-	if(!fs.is_open()){
-		printf("can\'t access %s\n",dev);
-	}
-	std::string s;fs>>s;
-	mac_addr res(s);
-	return res;
-}
-ipv4_addr get_ipv4_addr(const char *dev){
-	int fd=socket(AF_INET,SOCK_DGRAM,0);
-	struct ifreq ifr;
-	ifr.ifr_addr.sa_family=AF_INET;
-	strncpy(ifr.ifr_name,dev,IFNAMSIZ-1);
-	ioctl(fd,SIOCGIFADDR,&ifr);
-	return ipv4_addr(inet_ntoa(((struct sockaddr_in*)&ifr.ifr_addr)->sin_addr));
-}
+#include "local_address.h"
 
 mac_addr arp_request(const ipv4_addr& sip,const ipv4_addr& tip,const mac_addr& smac,const char *dev){
 	arp_eth_ipv4 packet(smac,sip,tip);
-	
-	assert(sizeof packet==42);
 	
 	char errbuf[PCAP_ERRBUF_SIZE];
 	pcap_t* handle=pcap_open_live(dev,BUFSIZ,1,1,errbuf);
@@ -50,7 +24,6 @@ mac_addr arp_request(const ipv4_addr& sip,const ipv4_addr& tip,const mac_addr& s
 		exit(1);
 	}
 	memcpy(&packet,ptr,42);
-	//std::cout<<"reply :"<<std::string(packet.smac)<<std::endl;
 	pcap_close(handle);
 	return packet.smac;
 }

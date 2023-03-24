@@ -15,7 +15,7 @@ union __attribute__((packed)) ipv4_addr{
 	ipv4_addr(uint32_t x);
 	ipv4_addr(const std::string& x);
 	ipv4_addr(const char *x);
-	operator std::string();
+	operator std::string() const;
 };
 
 struct __attribute__((packed)) mac_addr{
@@ -24,7 +24,7 @@ struct __attribute__((packed)) mac_addr{
 	mac_addr(){}
 	mac_addr(const std::string& x);
 	mac_addr(const char *x);
-	operator std::string();
+	operator std::string() const;
 };
 
 struct __attribute__((packed)) ethernet_packet{
@@ -34,7 +34,7 @@ struct __attribute__((packed)) ethernet_packet{
 	ethernet_packet(){}
 	ethernet_packet(const mac_addr& src);
 	ethernet_packet(const mac_addr& src,const mac_addr& dst):src(src),dst(dst){}
-	operator const uint8_t*();
+	operator const uint8_t*() const;
 };
 
 struct __attribute__((packed)) arp_eth_ipv4:public ethernet_packet{

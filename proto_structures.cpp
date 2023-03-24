@@ -18,7 +18,7 @@ ipv4_addr::ipv4_addr(const char *x){
 		x+=n+1;
 	}
 }
-ipv4_addr::operator std::string(){
+ipv4_addr::operator std::string() const{
 	std::ostringstream ss;
 	for(int i=0;i<siz;i++){
 		if(i)ss<<'.';
@@ -44,7 +44,7 @@ mac_addr::mac_addr(const char *x){
 		x+=n+1;
 	}
 }
-mac_addr::operator std::string(){
+mac_addr::operator std::string() const{
 	std::ostringstream ss;ss<<std::hex;
 	for(int i=0;i<siz;i++){
 		if(i)ss<<'-';
@@ -57,7 +57,7 @@ mac_addr::operator std::string(){
 ethernet_packet::ethernet_packet(const mac_addr& src):src(src){
 	memset(&dst,-1,sizeof dst);
 }
-ethernet_packet::operator const uint8_t*(){
+ethernet_packet::operator const uint8_t*() const{
 	return (uint8_t*)this;
 }
 
@@ -78,5 +78,7 @@ arp_eth_ipv4::arp_eth_ipv4(const mac_addr& src,const mac_addr& dst,const ipv4_ad
 	l2type=htons(0x0001);
 	l3type=htons(0x0800);
 	arptype=htons(0x0002);
+	std::cout<<'?'<<std::string(sip)<<' '<<std::string(tip)<<std::endl;
+	std::cout<<'!'<<std::string(this->sip)<<' '<<std::string(this->tip)<<std::endl;
 }
 

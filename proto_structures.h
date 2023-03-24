@@ -17,3 +17,12 @@ union ipv4_addr{
 	ipv4_addr(const char *x);
 	operator std::string();
 };
+
+struct __attribute__((packed)) mac_addr{
+	static constexpr int siz=6;
+	uint8_t addr[6];
+	mac_addr(){}
+	mac_addr(const std::string& x);
+	mac_addr(const char *x);
+	operator std::string();
+};

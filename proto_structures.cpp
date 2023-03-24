@@ -29,7 +29,7 @@ ipv4_addr::operator std::string(){
 }
 
 mac_addr::mac_addr(const std::string& x){
-	std::istringstream ss(x);
+	std::istringstream ss(x);ss>>std::hex;
 	char _;
 	for(int i=0;i<siz;i++){
 		if(i)ss>>_;
@@ -40,12 +40,12 @@ mac_addr::mac_addr(const std::string& x){
 mac_addr::mac_addr(const char *x){
 	for(int i=0;i<siz;i++){
 		int n;
-		sscanf(x,"%hhd%n",addr+i,&n);
+		sscanf(x,"%hhx%n",addr+i,&n);
 		x+=n+1;
 	}
 }
 mac_addr::operator std::string(){
-	std::ostringstream ss;
+	std::ostringstream ss;ss<<std::hex;
 	for(int i=0;i<siz;i++){
 		if(i)ss<<'-';
 		int tmp=addr[i];

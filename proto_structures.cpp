@@ -78,7 +78,5 @@ arp_eth_ipv4::arp_eth_ipv4(const mac_addr& src,const mac_addr& dst,const ipv4_ad
 	l2type=htons(0x0001);
 	l3type=htons(0x0800);
 	arptype=htons(0x0002);
-	std::cout<<'?'<<std::string(sip)<<' '<<std::string(tip)<<std::endl;
-	std::cout<<'!'<<std::string(this->sip)<<' '<<std::string(this->tip)<<std::endl;
 }
 

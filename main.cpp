@@ -60,7 +60,6 @@ void arp_spoof(const char *str_sip,const char *str_tip,const ipv4_addr& ip,const
 	ipv4_addr tip(str_tip);
 	mac_addr victim_mac=arp_request(ip,sip,mac,dev);
 	
-	std::cout<<';'<<std::string(tip)<<' '<<std::string(sip)<<std::endl;
 	arp_eth_ipv4 packet(mac,victim_mac,tip,sip);
 	char errbuf[PCAP_ERRBUF_SIZE];
 	pcap_t* handle=pcap_open_live(dev,0,0,0,errbuf);

@@ -5,6 +5,7 @@
 #include <pcap.h>
 #include <ctype.h>
 #include <assert.h>
+#include "proto_structures.h"
 void get_mac_addr(char *buf,size_t bufsiz,const char *interface){
 	size_t namelen=strlen(interface);
 	char* tmp=(char*)malloc(namelen+24);

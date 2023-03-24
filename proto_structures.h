@@ -5,6 +5,7 @@
 #include <netinet/in.h>
 
 union ipv4_addr{
+	static constexpr uint16_t ethtype=0x0800;
 	static constexpr int siz=4;
 	uint8_t addr[4];
 	uint32_t word;
